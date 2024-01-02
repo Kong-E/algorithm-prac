@@ -7,13 +7,13 @@ x_arr = [0, 0, -1, 1]
 y_arr = [1, -1, 0, 0]
 
 def dfs(graph, x, y, visited):
-    visited[x][y] = True  # Mark the current cell as visited
+    if x < 0 or x >= len(graph) or y < 0 or y >= len(graph[0]) or visited[x][y] or graph[x][y] == 0:
+        return
+    visited[x][y] = True
     for idx in range(4):
         nx = x + x_arr[idx]
         ny = y + y_arr[idx]
-        # Check for valid adjacent cells and if they are not visited
-        if 0 <= nx < len(graph) and 0 <= ny < len(graph[0]) and graph[nx][ny] == 1 and not visited[nx][ny]:
-            dfs(graph, nx, ny, visited)  # Continue DFS for unvisited adjacent cells
+        dfs(graph, nx, ny, visited)
 
 T = int(input())
 result = []
