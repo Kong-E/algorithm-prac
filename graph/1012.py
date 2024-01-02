@@ -1,3 +1,8 @@
+import sys
+
+# Increase the recursion limit if necessary
+sys.setrecursionlimit(10000)  # Example, adjust based on your needs
+
 x_arr = [0, 0, -1, 1]
 y_arr = [1, -1, 0, 0]
 
