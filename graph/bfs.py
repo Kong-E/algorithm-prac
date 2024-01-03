@@ -3,8 +3,7 @@ from collections import deque
 def bfs(graph, start_node):
     visited = [False] * (len(graph) + 1)
     queue = deque([start_node])
-    visited[start_node] = True # 시작노드 방문 처리 - 존재를 알면 방문 처리 한다는 느낌
-   
+    visited[start_node] = True # 시작노드 방문 처리 - 큐에서 존재를 알면 방문 처리 한다는 느낌
     
     while queue:
         node = queue.popleft() # 이어붙인 노드를 꺼냄
