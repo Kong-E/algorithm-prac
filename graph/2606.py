@@ -1,6 +1,4 @@
-import sys
-
-sys.setrecursionlimit(10000)
+from collections import deque
 
 n = int(input())  # Assuming n is a single integer
 k = int(input())  # Assuming k is a single integer
@@ -12,12 +10,17 @@ for _ in range(k):
     graph[x].append(y)
     graph[y].append(x)
     
-def dfs(start_node):
+def bfs(start_node):
+    queue = deque([start_node])
     visited[start_node] = 1
     
-    for adj_node in graph[start_node]:
-        if visited[adj_node] == 0:
-            dfs(adj_node)
+    while queue:
+        node = queue.popleft()
+        
+        for adj_node in graph[node]:
+            if visited[adj_node] == 0:
+                queue.append(adj_node)
+                visited[adj_node] = 1
     
-dfs(1)
+bfs(1)
 print(sum(visited)-1)
