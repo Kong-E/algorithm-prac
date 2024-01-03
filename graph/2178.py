@@ -23,7 +23,7 @@ def bfs(start_x,start_y):
             if graph[nx][ny] == 0:
                 continue
             if graph[nx][ny] == 1:
-                graph[nx][ny] = graph[x][y] + 1
+                graph[nx][ny] = graph[x][y] + 1 # visited와 같음
                 queue.append((nx,ny))
                 
 bfs(0,0)
