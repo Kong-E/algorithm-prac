@@ -36,8 +36,8 @@ def bfs(graph, start_node):
         result.append(str(node))
         for adj_node in sorted(graph[node]):
             if not visited[adj_node]:
-                queue.append(adj_node)
-                visited[adj_node] = True
+                queue.append(adj_node) # 큐에 넣는 순간 존재를 알음
+                visited[adj_node] = True # 존재를 아는 순간 visited를 True로 설정
                 
     return " ".join(result)
 
