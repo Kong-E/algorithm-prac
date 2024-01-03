@@ -3,12 +3,12 @@ from collections import deque
 def bfs(graph, start_node):
     visited = [False] * (len(graph) + 1)
     queue = deque([start_node])
-    visited[start_node] = True # 시작노드 방문 처리
+    visited[start_node] = True # 시작노드 방문 처리 - 존재를 알면 방문 처리 한다는 느낌
    
     
     while queue:
         node = queue.popleft() # 이어붙인 노드를 꺼냄
-        print(node) # 방문 노드 출력
+        print(node) # 현재 노드 출력 - 존재를 아는 노드 중에 하나의 노드 방문
         for adj_node in graph[node]: # 인접한 노드 방문
             if not visited[adj_node]:
                 queue.append(adj_node) # 큐에 이어붙임
