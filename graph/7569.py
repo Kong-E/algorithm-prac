@@ -6,8 +6,7 @@ dx = [0,0,-1,1,-H,H]
 dy = [1,-1,0,0,0,0]
 
 graph = [[] for _ in range(N*H)]
-# visited = [[False for _ in range(M)] for _ in range(N*H)]
-count = 0
+visited = [[False for _ in range(M)] for _ in range(N*H)]
 day = []
 
 for i in range(H):
@@ -16,9 +15,9 @@ for i in range(H):
       graph[j+(i*N)] = a
 
 def bfs(start_x,start_y): # x = m (열), y = n (행)
-  global count
   queue = deque([(start_x,start_y)])
-  # visited[start_y][start_x] = True
+  # graph[start_y][start_x] += 1
+  visited[start_y][start_x] = True
 
   while queue:
     (x, y) = queue.popleft()
@@ -27,27 +26,31 @@ def bfs(start_x,start_y): # x = m (열), y = n (행)
       nx = x + dx[i]
       ny = y + dy[i]
 
-      if nx < 0 or nx >= M or ny < 0 or ny >= N:
+      if nx < 0 or nx >= M or ny < 0 or ny >= N*H:
           continue
-      if graph[ny][nx] == -1:
+      if graph[ny][nx] == -1 or visited[ny][nx]:
           continue
       if graph[ny][nx] == 0:
-          queue.append((nx,ny))
-          graph[ny][nx] = 1
-          # visited[ny][nx] = True
-    count += 1
+        queue.append((nx,ny))
+        graph[ny][nx] = graph[y][x] + 1
+        visited[ny][nx] = True
 
-for i in range(N):
+for i in range(N*H):
    for j in range(M):
-      if graph[i][j] == 1:
-         bfs(j,i)
-         day.append(count)
-         count = 0
+      if graph[i][j] == 1 and not visited[i][j]:
+        bfs(j,i)
+         
+max_value = graph[0][0]  # 초기값을 첫 번째 요소로 설정
 
-for list in graph:
-  if 0 in list:
-    print(-1)
-    break
-  else:
-    print(max(day))
-    break
+for row in graph:
+    for element in row:
+        if element > max_value:
+            max_value = element
+
+if max_value == 1:
+  print(0)
+else:
+  print(max_value-1)
+
+for row in graph:
+  print(row)
