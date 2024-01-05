@@ -3,7 +3,7 @@ from collections import deque
 M,N,H = map(int,input().split())
 
 dx = [0,0,-1,1,0,0]
-dy = [1, -1, 0, 0, H, -H]
+dy = [1, -1, 0, 0, N, -N]
 
 graph = [[] for _ in range(N*H)]
 visited = [[False for _ in range(M)] for _ in range(N*H)]
