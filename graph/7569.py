@@ -2,12 +2,11 @@ from collections import deque
 
 M,N,H = map(int,input().split())
 
-dx = [0,0,-1,1,-H,H]
-dy = [1,-1,0,0,0,0]
+dx = [0,0,-1,1,0,0]
+dy = [1, -1, 0, 0, H, -H]
 
 graph = [[] for _ in range(N*H)]
 visited = [[False for _ in range(M)] for _ in range(N*H)]
-day = []
 
 for i in range(H):
   for j in range(N):
@@ -16,7 +15,6 @@ for i in range(H):
 
 def bfs(start_x,start_y): # x = m (열), y = n (행)
   queue = deque([(start_x,start_y)])
-  # graph[start_y][start_x] += 1
   visited[start_y][start_x] = True
 
   while queue:
@@ -40,17 +38,17 @@ for i in range(N*H):
       if graph[i][j] == 1 and not visited[i][j]:
         bfs(j,i)
          
-max_value = graph[0][0]  # 초기값을 첫 번째 요소로 설정
+max_value = 0 
+unripe_exist = False
 
 for row in graph:
     for element in row:
+        if element == 0:
+          unripe_exist = True
         if element > max_value:
             max_value = element
 
-if max_value == 1:
-  print(0)
+if unripe_exist:
+  print(-1)
 else:
   print(max_value-1)
-
-for row in graph:
-  print(row)
