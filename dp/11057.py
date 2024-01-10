@@ -1,18 +1,11 @@
 import sys
-import math
-
 input = sys.stdin.readline
 
 n = int(input())
+dp = [1] * 10
 
-dp = [0] * 1001
+for i in range(n-1):
+    for j in range(1, 10):
+        dp[j] += dp[j-1]
 
-def number_of_combinations(n, k):
-    return math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
-
-dp[1] = 10
-
-for i in range(2, n+1):
-    dp[i] = dp[i-1] + number_of_combinations(9+i-1, i)
-    
-print(dp[n]%10007)
+print(sum(dp) % 10007)
