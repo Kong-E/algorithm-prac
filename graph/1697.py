@@ -1,14 +1,17 @@
 import sys
+from collections import deque
 
 input = sys.stdin.readline
 
 n, k = map(int, input().split())
 
-queue = [(n, 0)]
 visited = [False] * 100001
 
+queue = deque([(n,0)])
+visited[n] = True
+
 while queue:
-  node, time = queue.pop(0)
+  node, time = queue.popleft()
       
   if node - 1 >= 0 and not visited[node-1]:
     queue.append((node-1, time+1))
