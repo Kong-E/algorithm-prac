@@ -10,16 +10,15 @@ dy = [2,-2,1,-1,2,-2,1,-1]
 
 graph = []
 
-def bfs(start_x, start_y, target_x, target_y):
-  counts = []
-  queue = deque([(start_x, start_y, 0)])
-  graph[start_x][start_y] = 1
+def bfs(start_node, target_node):
+  queue = deque([start_node])
+  graph[start_node[0]][start_node[1]] = 1
   
   while queue:
-    x, y, count = queue.popleft()
+    x, y = queue.popleft()
 
-    if (x, y) == (target_x, target_y):
-      counts.append(count)
+    if (x, y) == target_node:
+      return graph[x][y] - 1
     
     for i in range(8):
       nx = x + dx[i]
@@ -28,11 +27,8 @@ def bfs(start_x, start_y, target_x, target_y):
       if nx < 0 or nx >= m or ny < 0 or ny >= m:
         continue
       if graph[nx][ny] == 0:
-        queue.append((nx, ny, count + 1))
-        graph[nx][ny] = 1  
-        
-  print(counts)
-  return min(counts)
+        queue.append((nx, ny))
+        graph[nx][ny] = graph[x][y] + 1
 
 for _ in range(n):
   m = int(input())
@@ -41,4 +37,4 @@ for _ in range(n):
   current = tuple(map(int, input().split()))
   target = tuple(map(int, input().split()))
   
-  print(bfs(current[0], current[1], target[0], target[1]))
+  print(bfs(current, target))
