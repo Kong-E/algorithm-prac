@@ -1,12 +1,13 @@
-from bisect import bisect_left, bisect_right
-from sys import stdin
+import sys
+from collections import Counter
 
-n = stdin.readline().rstrip()
-card = list(map(int,stdin.readline().split()))
-m = stdin.readline().rstrip()
-test = list(map(int,stdin.readline().split()))
+N = int(input())
+N_list = list(map(int, sys.stdin.readline().split()))
 
-card.sort()
+M = int(input())
+M_list = list(map(int, sys.stdin.readline().split()))
 
-for i in range(len(test)):
-    print(bisect_right(card, test[i]) - bisect_left(card, test[i]), end=' ')
+count_N_list = Counter(N_list)
+
+for i in M_list:
+    print(count_N_list[i], end=' ')
