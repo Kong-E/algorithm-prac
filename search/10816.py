@@ -1,33 +1,12 @@
-import sys
+from bisect import bisect_left, bisect_right
+from sys import stdin
 
-input = sys.stdin.readline
+n = stdin.readline().rstrip()
+card = list(map(int,stdin.readline().split()))
+m = stdin.readline().rstrip()
+test = list(map(int,stdin.readline().split()))
 
-n = int(input())
-nlist = list(map(int, input().split()))
-nlist.sort()
+card.sort()
 
-m = int(input())
-mlist = list(map(int, input().split()))
-
-ncount = { i : 0 for i in nlist }
-
-for i in nlist:
-  ncount[i] += 1
-  
-def binary_search(array, target, start, end):
-  while start <= end:
-    mid = (start + end) // 2
-    if array[mid] == target:
-      return mid
-    elif array[mid] > target:
-      end = mid - 1
-    else:
-      start = mid + 1
-  return None
-
-for target in mlist:
-  result = binary_search(nlist, target, 0, n-1)
-  if result == None:
-    print(0, end=' ')
-  else:
-    print(ncount[target], end=' ')
+for i in range(len(test)):
+    print(bisect_right(card, test[i]) - bisect_left(card, test[i]), end=' ')
