@@ -3,14 +3,18 @@ import sys
 input = sys.stdin.readline
 n, m = map(int, input().split())
 arr = [int(input()) for _ in range(n)]
-answer = 1e9
+answer = 2e9
 
-arr.sort(reverse=True)
+arr.sort()
 
-for i in range(n):
-    for j in range(i, n):
-        sub = abs(arr[i]-arr[j])
-        if sub >= m:
-            answer = min(answer, sub)
+left, right = 0, 0
+
+while left <= right and right < n:
+    subt = arr[right]-arr[left]
+    if subt < m:
+        right += 1
+    else:
+        answer = min(answer, subt)
+        left += 1
 
 print(answer)
